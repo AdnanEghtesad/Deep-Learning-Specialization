@@ -4,26 +4,27 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 import time
 
-CPU_Parallelism = 0 
-GPU_Parallelism = 1 
+CPU_Parallelism = 1
+GPU_Parallelism = 0 
 assert (CPU_Parallelism + GPU_Parallelism == 1), "You can use either CPU or GPU, but not both or neither."
 
 if(CPU_Parallelism):
+    device = torch.device("cpu")
     # Use 8 CPU cores
     torch.set_num_threads(8)
     # Optional: control inter-op parallelism
     torch.set_num_interop_threads(8)
 elif(GPU_Parallelism):
+    device = torch.device("cuda")
     print("Torch version:", torch.__version__)
     print("CUDA version:", torch.version.cuda)
     print("CUDA available:", torch.cuda.is_available())
     print("GPU count:", torch.cuda.device_count())
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
 tic = time.time()
 
-
+   
 
 #import helper_utils
 
